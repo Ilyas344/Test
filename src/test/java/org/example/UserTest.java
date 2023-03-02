@@ -17,16 +17,41 @@ class UserTest {
         user3.setEmail("abra@cada.bra");
         assertEquals(user3.getEmail(), user.getEmail());//проверка устанавливаются ли данные
         // при создании объекта;
-        RuntimeException thrown = assertThrows(RuntimeException.class, () -> {
-            user.setEmail("");//Емайл пустой
-            user.setEmail(null);//Email null
-            user.setEmail("abra@cadabra");//емайл без точки
-            user.setEmail("abracadab.ra");//емайл без @
-            user.setEmail("login");//Логин и емайл одинаковы
-            user.setEmail(user.getLogin());//Логин и емайл одинаковы
 
+        RuntimeException emailIsEmpty = assertThrows(RuntimeException.class, () -> {
+            user.setEmail("");//Емайл пустой
         });
-        assertEquals("Неправильный емайл", thrown.getMessage());
+        assertEquals("Неправильный емайл", emailIsEmpty.getMessage());
+
+
+        RuntimeException emailIsNull = assertThrows(RuntimeException.class, () -> {
+            user.setEmail(null);//Email null
+        });
+        assertEquals("Неправильный емайл", emailIsNull.getMessage());
+
+
+        RuntimeException emailWithoutDot = assertThrows(RuntimeException.class, () -> {
+            user.setEmail("abra@cadabra");//емайл без точки
+        });
+        assertEquals("Неправильный емайл", emailWithoutDot.getMessage());
+
+
+        RuntimeException emailWithout = assertThrows(RuntimeException.class, () -> {
+            user.setEmail("abracada.bra");//емайл без @
+        });
+        assertEquals("Неправильный емайл", emailWithout.getMessage());
+
+
+        RuntimeException emailIsSame1 = assertThrows(RuntimeException.class, () -> {
+            user.setEmail("login");//Логин и емайл одинаковы
+        });
+        assertEquals("Неправильный емайл", emailIsSame1.getMessage());
+
+
+        RuntimeException emailIsSame2 = assertThrows(RuntimeException.class, () -> {
+            user.setEmail(user.getLogin());//Логин и емайл одинаковы
+        });
+        assertEquals("Неправильный емайл", emailIsSame2.getMessage());
 
     }
 
@@ -36,14 +61,28 @@ class UserTest {
         user3.setLogin("login");
         assertEquals(user3.getLogin(), user.getLogin());//проверка устанавливаются ли данные
         // при создании объекта;
-        RuntimeException thrown = assertThrows(RuntimeException.class, () -> {
+        RuntimeException loginIsEmpty = assertThrows(RuntimeException.class, () -> {
             user.setLogin("");//Логин пустой
-            user.setLogin(null);//Логин null
-            user.setLogin("abra@cada.bra");//Логин и емайл одинаковы
-            user.setLogin(user.getEmail());//Логин и емайл одинаковы
-
         });
-        assertEquals("Неправильный логин", thrown.getMessage());
+        assertEquals("Неправильный логин", loginIsEmpty.getMessage());
+
+
+        RuntimeException loginIsNull = assertThrows(RuntimeException.class, () -> {
+            user.setLogin(null);//Логин null
+        });
+        assertEquals("Неправильный логин", loginIsNull.getMessage());
+
+
+        RuntimeException loginIsSame1 = assertThrows(RuntimeException.class, () -> {
+            user.setLogin("abra@cada.bra");//Логин и емайл одинаковы
+        });
+        assertEquals("Неправильный логин", loginIsSame1.getMessage());
+
+
+        RuntimeException loginIsSame2 = assertThrows(RuntimeException.class, () -> {
+            user.setLogin(user.getEmail());//Логин и емайл одинаковы
+        });
+        assertEquals("Неправильный логин", loginIsSame2.getMessage());
 
     }
 

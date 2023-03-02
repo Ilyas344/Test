@@ -26,6 +26,8 @@ public class User {
         }
         if (email.contains("@") && email.contains(".")) {
             this.email = email;
+        } else {
+            throw new RuntimeException("Неправильный емайл");
         }
 
 
