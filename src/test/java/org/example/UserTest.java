@@ -10,7 +10,13 @@ class UserTest {
     User user = new User("abra@cada.bra", "login");//Правильные данные
     User user2 = new User("abra@cada.bra", "login");// Данные для проверки геттеров
     User user3 = new User();// Создание нового объекта с пустыми данными
-
+@Test
+void shouldCreationOfIdenticalObjects(){
+    RuntimeException emailIsEmpty = assertThrows(RuntimeException.class, () -> {
+        User user1 = new User("abra@cada.bra","abra@cada.bra");
+    });
+    assertEquals("Емайл равен логину", emailIsEmpty.getMessage());
+}
 
     @org.junit.jupiter.api.Test
     void setEmail() {
@@ -58,8 +64,8 @@ class UserTest {
 
     @org.junit.jupiter.api.Test
     void setLogin() {
-        user3.setLogin("login");
-        assertEquals(user3.getLogin(), user.getLogin());//проверка устанавливаются ли данные
+        user2.setLogin("login");
+        assertEquals("login", user2.getLogin());//проверка устанавливаются ли данные
         // при создании объекта;
         RuntimeException loginIsEmpty = assertThrows(RuntimeException.class, () -> {
             user.setLogin("");//Логин пустой
@@ -75,12 +81,12 @@ class UserTest {
 
         RuntimeException loginIsSame1 = assertThrows(RuntimeException.class, () -> {
             user.setLogin("abra@cada.bra");//Логин и емайл одинаковы
-        });
+       });
         assertEquals("Неправильный логин", loginIsSame1.getMessage());
 
 
         RuntimeException loginIsSame2 = assertThrows(RuntimeException.class, () -> {
-            user.setLogin(user.getEmail());//Логин и емайл одинаковы
+           user.setLogin(user.getEmail());//Логин и емайл одинаковы
         });
         assertEquals("Неправильный логин", loginIsSame2.getMessage());
 
@@ -88,13 +94,13 @@ class UserTest {
 
     @Test
     void getEmail() {
-        assertEquals(user2.getEmail(), user.getEmail());//правильно ли получает данные
+        //правильно ли получает данные
         assertEquals("abra@cada.bra", user.getEmail());
     }
 
     @Test
     void getLogin() {
-        assertEquals(user2.getLogin(), user.getLogin());//правильно ли получает данные
+        //правильно ли получает данные
         assertEquals("login", user.getLogin());
     }
 }

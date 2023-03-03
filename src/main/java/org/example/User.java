@@ -12,8 +12,13 @@ public class User {
     }
 
     public User(String email, String login) {
-        setEmail(email);
-        setLogin(login);
+        if (email.equals(login)) {
+            throw new RuntimeException("Емайл равен логину");
+        } else {
+            setEmail(email);
+            setLogin(login);
+        }
+
     }
 
     public String getEmail() {
@@ -21,7 +26,7 @@ public class User {
     }
 
     public void setEmail(String email) {
-        if (email == null || email.isEmpty() || email.equals(getLogin())) {
+        if (email == null || email.isEmpty() || email.equals(login)) {
             throw new RuntimeException("Неправильный емайл");
         }
         if (email.contains("@") && email.contains(".")) {
@@ -38,7 +43,7 @@ public class User {
     }
 
     public void setLogin(String login) {
-        if (login == null || login.isEmpty() || login.equals(getEmail())) {
+        if (login == null || login.isEmpty() || email.equals(login)) {
             throw new RuntimeException("Неправильный логин");
         }
         this.login = login;
