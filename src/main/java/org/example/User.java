@@ -7,18 +7,28 @@ public class User {
 
     private String login;
     private String email;
+    private String name;
 
     public User() {
     }
 
-    public User(String email, String login) {
+    public User(String name, String email, String login) {
         if (email.equals(login)) {
-            throw new RuntimeException("Емайл равен логину");
+            throw new RuntimeException("Email равен логину");
         } else {
             setEmail(email);
             setLogin(login);
+            this.name = name;
         }
 
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -62,4 +72,10 @@ public class User {
         return Objects.hash(login, email);
     }
 
+    @Override
+    public String toString() {
+        return "login='" + login + ' ' +
+                ", email='" + email + ' ' +
+                ", name='" + name;
+    }
 }
